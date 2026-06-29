@@ -1,79 +1,67 @@
-# Sound Lounge — public OTA firmware
+# Sala Frequencies — firmware updates
 
-Over-the-air update packages for the Sala Sound Lounge three-node system (ESP32 UI, Teensy Player, Teensy Zones).
+This repository hosts official firmware updates for the **Sala Frequencies** music player. You do not need a GitHub account to download files or to update a player that is already set up for online updates.
 
-**Current Next test version:** **0.15.03** (unified package — all three nodes same version).
+**Current firmware version:** **0.15.04**
 
-Source code and build scripts live in the private [Sound-Lounge-Music](https://github.com/FlashAeronautica/Sound-Lounge-Music) repository. This repo holds **binaries only** so devices can download updates without GitHub authentication.
+---
 
-Every published Next package includes **all three firmware binaries at the same version**. The Music Player UI still installs only components that are older than the package; it does not apply unchanged nodes.
+## Update over the air (recommended)
 
-## Folders
+Use this when the player can connect to your Wi‑Fi network.
 
-| Folder | Use |
-|--------|-----|
-| `next/` | Sala Frequencies **Next** test channel (`Sound_Lounge_*_Next` sketches) |
-| `release/` | Production channel — field rollout |
-| `staging/` | Pre-release / test bench channel |
+1. On the player screen, open **Settings**.
+2. Turn **Wi‑Fi** on and connect to your network.
+3. Open **Updates** and wait until the version check finishes.
+4. If an update is available, choose **Upgrade Online**.
+5. Leave the player **powered on** until the update completes and the screen restarts.
 
-Each folder contains a `manifest.txt` and the binary files referenced in that manifest (`music_player_ui_*.bin`, `music_player_sound_*.bin`, `sound_lounge_*.bin`).
+The player downloads the update, installs it, and reboots automatically. This can take several minutes.
 
-The root `manifest.txt` matches the **release** channel.
+---
 
-A manifest may omit keys for legacy SD packages. **New Next OTA releases must list all three nodes** (`music_player_ui`, `music_player_sound`, `sound_lounge`) at the **same version** as the top-level `version=` field.
+## Update using an SD card
 
-## Manifest URLs (raw, no auth)
+Use this when Wi‑Fi is unavailable, or when you prefer to prepare the update on a computer first.
 
-| Channel | URL |
-|---------|-----|
-| Next | https://api.github.com/repos/FlashAeronautica/Sound-Lounge-Firmware/contents/next?ref=main |
-| Next raw | https://raw.githubusercontent.com/FlashAeronautica/Sound-Lounge-Firmware/main/next/manifest.txt |
-| Release | https://raw.githubusercontent.com/FlashAeronautica/Sound-Lounge-Firmware/main/release/manifest.txt |
-| Staging | https://raw.githubusercontent.com/FlashAeronautica/Sound-Lounge-Firmware/main/staging/manifest.txt |
+### 1. Download the firmware package
 
-## SD card mirror (optional offline install)
+On a computer, open the [firmware package](https://github.com/FlashAeronautica/Sound-Lounge-Firmware/tree/main) in this repository and download:
 
-Copy the same files onto the **Box A Teensy 4.1** microSD:
+- `manifest.txt`
+- Every `.bin` file listed in that manifest
 
-```
-/firmware/release/manifest.txt   + lounge_*_v*.bin   (production)
-/firmware/staging/manifest.txt   + lounge_*_v*.bin   (testing)
-/firmware/next/manifest.txt      + music_player_*.bin   (Next testing)
-```
+Keep all downloaded files together in one folder on your computer.
 
-Next firmware verifies the SD package before attempting an Online download. WiFi is never turned on automatically for update checks or installs.
+### 2. Copy the package to the player SD card
 
-On the device, the UI labels the GitHub channel **Online** and the SD card package **Local**. **Upgrade Online** downloads to SD then installs in one step; **Upgrade Local** installs from SD only. See [NEXT_OPERATOR_UPDATE_GUIDE.md](https://github.com/FlashAeronautica/Sound-Lounge-Music/blob/main/docs/NEXT_OPERATOR_UPDATE_GUIDE.md) in the private Music repo.
+1. Safely remove the **microSD card** from the music player.
+2. Insert the card into your computer (USB adapter or card reader).
+3. Open the card and find or create a folder named **`firmware`** at the root of the card.
+4. Copy `manifest.txt` and all `.bin` files into that **`firmware`** folder.
+5. Safely eject the card and put it back in the player.
 
-## Install order (automatic)
+### 3. Install from the SD card
 
-1. Sound Lounge (Teensy 4.0), if selected / listed in manifest
-2. Music Player Sound (Teensy 4.1), if selected / listed
-3. Music Player UI (ESP32), if selected / listed — reboots last
+1. On the player screen, open **Settings** → **Updates**.
+2. Wait until the version check finishes.
+3. Choose **Upgrade Local**.
+4. Leave the player **powered on** until the update completes and the screen restarts.
 
-The Music Player UI orchestrates this order when you tap **Upgrade Online** or **Upgrade Local** on the **Updates** screen. Sound Lounge updates require version verification after reboot.
+---
 
-## Publishing a Next test package
+## Before you update
 
-From the `Sound-Lounge-Music` repo on the PC:
+- Keep the player **plugged into power** for the whole update.
+- Do **not** remove the SD card or switch off power while the **Updating** screen is shown.
+- If you use the SD card method, copy the **complete** package (`manifest.txt` plus all `.bin` files). A partial copy can fail or leave the player in a bad state.
 
-1. Bump **`FIRMWARE_VERSION` to the same value** in all three `*_Next/Config.h` files (`Sound_Lounge_UI_Next`, `Sound_Lounge_Player_Next`, `Sound_Lounge_Zones_Next`).
-2. `.\build_firmware_next.ps1` (optional `-Summary "Next OTA x.y.zz: change note"`)
-3. Copy **all** `.bin` files from `firmware_next/` into this repo's `next/` folder.
-4. Copy `firmware_next/manifest.txt` to `next/manifest.txt` (verify all three `*_version=` lines match `version=`).
-5. Update the **Current Next test version** line in this README.
-6. Commit and push to `main`.
+---
 
-Full detail: [Sound-Lounge-Music/docs/NEXT_FIRMWARE.md](https://github.com/FlashAeronautica/Sound-Lounge-Music/blob/main/docs/NEXT_FIRMWARE.md) (private repo).
+## Problems?
 
-## Node mapping
+- **No update offered** — the player may already be on the latest version, or the SD package may be missing or incomplete.
+- **Online update fails** — check Wi‑Fi signal and password, then try again or use the SD card method.
+- **Update stuck** — leave power connected for at least ten minutes. If nothing changes, power-cycle once and check **Settings** → **Information** for the installed version before trying again.
 
-| Manifest key | Product name | MCU |
-|--------------|--------------|-----|
-| `music_player_ui` | Music Player UI | ESP32-S3 |
-| `music_player_sound` | Music Player Sound | **Teensy 4.1** |
-| `sound_lounge` | Sound Lounge | **Teensy 4.0** |
-
-Legacy manifest keys (`esp32`, `teensy_a`, `teensy_b`) are still accepted by Next firmware for older SD packages.
-
-Music Player Sound firmware rejects images with the wrong Teensy flash ID (`fw_teensy41` vs `fw_teensy40`).
+For product support, contact your Sala / Sound Lounge installer or visit [salanewcastle.com.au](https://www.salanewcastle.com.au/).
