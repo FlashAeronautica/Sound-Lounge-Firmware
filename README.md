@@ -2,7 +2,32 @@
 
 This repository hosts official firmware updates for the **Sala Frequencies** music player. You do not need a GitHub account to download files or to update a player that is already set up for online updates.
 
-**Current firmware version:** **0.15.07**
+**Current firmware version:** **0.15.08**
+
+---
+
+## Where the firmware lives
+
+The **current** update package is always in the **root** of this repository on the `main` branch:
+
+| File | Purpose |
+|------|---------|
+| [`manifest.txt`](manifest.txt) | Package index — lists version and every `.bin` file |
+| `music_player_ui_<version>.bin` | Music player touchscreen (ESP32) |
+| `music_player_sound_<version>.bin` | Music player sound module (Teensy) |
+| `sound_lounge_<version>.bin` | Sound Lounge zones module (Teensy) |
+
+Browse or download everything from the [main branch folder](https://github.com/FlashAeronautica/Sound-Lounge-Firmware/tree/main).
+
+**Online updates** — the player checks this manifest automatically when Wi‑Fi is connected:
+
+`https://raw.githubusercontent.com/FlashAeronautica/Sound-Lounge-Firmware/main/manifest.txt`
+
+Individual `.bin` files are downloaded from the same folder using the names listed in `manifest.txt`.
+
+**SD card updates** — copy `manifest.txt` and **all** listed `.bin` files into a folder named **`firmware`** on the player microSD card (see below).
+
+Only the latest package is kept here. Older versions are not stored in this repository.
 
 ---
 
@@ -26,10 +51,10 @@ Use this when Wi‑Fi is unavailable, or when you prefer to prepare the update o
 
 ### 1. Download the firmware package
 
-On a computer, open the [firmware package](https://github.com/FlashAeronautica/Sound-Lounge-Firmware/tree/main) in this repository and download:
+On a computer, open the [firmware package on GitHub](https://github.com/FlashAeronautica/Sound-Lounge-Firmware/tree/main) and download:
 
-- `manifest.txt`
-- Every `.bin` file listed in that manifest
+- [`manifest.txt`](https://raw.githubusercontent.com/FlashAeronautica/Sound-Lounge-Firmware/main/manifest.txt)
+- Every `.bin` file named in that manifest (same folder on GitHub)
 
 Keep all downloaded files together in one folder on your computer.
 
