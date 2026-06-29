@@ -2,7 +2,7 @@
 
 This repository hosts official firmware updates for the **Sala Frequencies** music player. You do not need a GitHub account to download files or to update a player that is already set up for online updates.
 
-**Current firmware version:** **0.15.10**
+**Current firmware version:** **0.15.11**
 
 ---
 
@@ -28,6 +28,8 @@ Individual `.bin` files are downloaded from the same folder using the names list
 **SD card updates** — copy `manifest.txt` and **all** listed `.bin` files into a folder named **`firmware`** on the player microSD card (see below).
 
 Only the latest package is kept here. Older versions are not stored in this repository.
+
+**Hardware matching** — updates apply only to hardware revisions listed in the manifest. Each component has its own field (`music_player_ui_hw`, `music_player_sound_hw`, `sound_lounge_hw`). Values can list multiple revisions (comma-separated, e.g. `1,2`). Check **Settings → Information** on your player for installed hardware revisions (Player HW / Lounge HW).
 
 ---
 
