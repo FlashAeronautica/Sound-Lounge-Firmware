@@ -17,11 +17,11 @@ The **current** update package is always in the **root** of this repository on t
 | `music_player_sound_<version>.bin` | Music player sound module (Teensy) |
 | `sound_lounge_<version>.bin` | Sound Lounge zones module (Teensy) |
 
-Browse or download everything from the [main branch folder](https://github.com/FlashAeronautica/Sound-Lounge-Firmware/tree/main).
+Browse or download everything from the [main branch folder](https://github.com/Sala-Frequencies/Sound-Lounge-Firmware/tree/main).
 
 **Online updates** — the player checks this manifest automatically when Wi‑Fi is connected:
 
-`https://raw.githubusercontent.com/FlashAeronautica/Sound-Lounge-Firmware/main/manifest.txt`
+`https://raw.githubusercontent.com/Sala-Frequencies/Sound-Lounge-Firmware/main/manifest.txt`
 
 Individual `.bin` files are downloaded from the same folder using the names listed in `manifest.txt`.
 
@@ -53,9 +53,9 @@ Use this when Wi‑Fi is unavailable, or when you prefer to prepare the update o
 
 ### 1. Download the firmware package
 
-On a computer, open the [firmware package on GitHub](https://github.com/FlashAeronautica/Sound-Lounge-Firmware/tree/main) and download:
+On a computer, open the [firmware package on GitHub](https://github.com/Sala-Frequencies/Sound-Lounge-Firmware/tree/main) and download:
 
-- [`manifest.txt`](https://raw.githubusercontent.com/FlashAeronautica/Sound-Lounge-Firmware/main/manifest.txt)
+- [`manifest.txt`](https://raw.githubusercontent.com/Sala-Frequencies/Sound-Lounge-Firmware/main/manifest.txt)
 - Every `.bin` file named in that manifest (same folder on GitHub)
 
 Keep all downloaded files together in one folder on your computer.
